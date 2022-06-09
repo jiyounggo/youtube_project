@@ -33,6 +33,7 @@ const SearchHeader = ({onSearch}) => {
     
     const onSubmit =(e)=>{
       e.preventDefault();
+      입력값변경("")
       onSearch(입력값)
 
   };
@@ -41,7 +42,7 @@ const SearchHeader = ({onSearch}) => {
        <LogoIMG src = "/images/logo.png" alt="logo"/>
         <Title>Youtube</Title>
         <form>
-        <Input  type="search" placeholder="search..." onChange={(e)=>{
+        <Input value={입력값} type="search" placeholder="search..." onChange={(e)=>{
           입력값변경(e.currentTarget.value)
         }} />
         <Button type="submit" onClick={(e)=>onSubmit(e)}>
