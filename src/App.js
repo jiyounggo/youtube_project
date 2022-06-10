@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
+import styles from './app.module.css';
 import VideoList from './component/video_list/video_list';
 import SearchHeader from './component/search_header/search_header';
-import styled, {css} from 'styled-components';
 import VideoDetail from './component/video_detail/video_detail';
-
-const Box = styled.div`
-  max-width:80%;
-`;
 
 function App() {
   const [videos, setVideos] = useState([]);
-  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState("");
 
   const selectVideo = video => {
     setSelectedVideo(video);
@@ -39,15 +34,23 @@ function App() {
       .catch(error => console.log('error', error));
   },[])
   return (
-    <Box>
-    <SearchHeader onSearch={search}/>
-    {
-      selectedVideo && <VideoDetail video={selectedVideo} />
-    }
-    <VideoList
-            videos={videos}
-            onVideoClick={selectVideo}/>
-    </Box>
+    <div className={styles.app}>
+    <SearchHeader onSearch={search} />
+    <section className={styles.content}>
+      {selectedVideo && (
+        <div className={styles.detail}>
+          <VideoDetail video={selectedVideo} />
+        </div>
+      )}
+      <div className={styles.list}>
+        <VideoList
+          videos={videos}
+          onVideoClick={selectVideo}
+          display={selectedVideo ? 'list' : 'grid'}
+        />
+      </div>
+    </section>
+  </div>
   );
 }
 export default App;
